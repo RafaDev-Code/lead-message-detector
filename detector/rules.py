@@ -64,7 +64,7 @@ def detect_by_rules(message: str) -> dict :
             "message_type": "sensitive_case",
             "tone": "aggressive",
             "sentiment": "negative",
-            "lead_state_suggestion": "huma_review",
+            "lead_state_suggestion": "human_review",
             "contact_role": "unknown",
             "intent": "raise_sensitive_complaint",
             "objection": "spam_distrust",
@@ -73,13 +73,13 @@ def detect_by_rules(message: str) -> dict :
             "human_review_required": True,
             "evidence": matches,
             "next_step": "send_to_human",
-            "sales_agent_brief": "El lead, muestra agresión, amenaza io acusa posible estafa. No vender. Derivar a humano y responder con cuidado.",
+            "sales_agent_brief": "El lead muestra agresión, amenaza o acusa posible estafa. No vender. Derivar a humano y responder con cuidado.",
             "suggested_reply": "Entiendo. No queremos generar molestias. Muchas gracias.",
             "crm_payload": {
                 "commercial_state": "human_review",
                 "role": "unknown",
                 "tags": ["sensitive_case", "possible_spam_perception"],
-                "note": "Lead expŕesó agresión, amenaza o desconfianza fuerte."
+                "note": "Lead expresó agresión, amenaza o desconfianza fuerte."
             },
         }
 
@@ -335,8 +335,8 @@ def detect_by_rules(message: str) -> dict :
         objection_detail = detect_objection_detail(message)
         return {
             "message_type": "objection",
-            "tone": "distrustful",
-            "sentiment": "mixed",
+            "tone": objection_detail["tone"],
+            "sentiment": objection_detail["sentiment"],
             "lead_state_suggestion": "with_objection",
             "contact_role": "unknown",
             "intent": "raise_objection",
@@ -345,9 +345,9 @@ def detect_by_rules(message: str) -> dict :
             "risk_level": "medium",
             "human_review_required": False,
             "evidence": matches,
-            "next_step": "answer_objection",
-            "sales_agent_brief": "El lead planteó una objeción comercial. Responder breve, sin discutir y sin presionar.",
-            "suggested_reply": "Tiene sentido. La idea no es reemplazar lo que ya tienen, sino mostrar una mejora concreta y ver si les sirve.",
+            "next_step": objection_detail["next_step"],
+            "sales_agent_brief": objection_detail["sales_agent_brief"],
+            "suggested_reply": objection_detail["suggested_reply"],
             "crm_payload": {
                 "commercial_state": "with_objection",
                 "role": "unknown",
@@ -464,7 +464,6 @@ def detect_by_rules(message: str) -> dict :
         }
     #Si ninguna regla aplicó, no devolvemos nada.
     return None
-
 
 
 

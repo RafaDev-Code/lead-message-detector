@@ -164,11 +164,32 @@ FAKE_CASES = [
         "current_state": "new",
         "expected_message_type": "objection",
         "expected_risk_level": "medium",
-        "expected_next_step": "answer_objection",
+        "expected_next_step": "present_short_proposal",
         "expected_objection": "already_has_website",
         "expected_extracted_data": {
             "mentioned_channels": ["web"],
         },
+        "expected_do_not_do_contains": [
+            "no_reemplazar_web",
+            "no_descalificar_web_actual",
+        ],
+    },
+    {
+        "name": "Objeción ya está en Google Maps",
+        "conversation": "",
+        "last_message": "ya estamos en google maps",
+        "current_state": "new",
+        "expected_message_type": "objection",
+        "expected_risk_level": "medium",
+        "expected_next_step": "present_short_proposal",
+        "expected_objection": "already_has_google_maps",
+        "expected_extracted_data": {
+            "mentioned_channels": ["google"],
+        },
+        "expected_do_not_do_contains": [
+            "no_competir_con_google_maps",
+            "no_descalificar_canal_actual",
+        ],
     },
     {
         "name": "Mensaje confuso",
@@ -186,11 +207,13 @@ FAKE_CASES = [
         "current_state": "new",
         "expected_message_type": "objection",
         "expected_risk_level": "medium",
-        "expected_next_step": "answer_objection",
+        "expected_next_step": "offer_demo_or_preview",
         "expected_objection": "price",
         "expected_do_not_do_contains": [
+            "no_inventar_precio",
             "no_discutir",
             "no_minimizar_objecion",
+            "no_dar_precio_sin_preview",
         ],
     },
     {
@@ -200,7 +223,11 @@ FAKE_CASES = [
         "current_state": "new",
         "expected_message_type": "objection",
         "expected_risk_level": "medium",
-        "expected_next_step": "answer_objection",
+        "expected_next_step": "schedule_followup",
         "expected_objection": "no_time",
+        "expected_do_not_do_contains": [
+            "no_mandar_mensaje_largo",
+            "no_pedir_reunion_ahora",
+        ],
     },
 ]
