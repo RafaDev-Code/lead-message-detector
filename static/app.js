@@ -6,6 +6,7 @@ const nextStep = document.getElementById("nextStep");
 const salesBrief = document.getElementById("salesBrief");
 const doNotDoList = document.getElementById("doNotDoList");
 const jsonOutput = document.getElementById("jsonOutput");
+const clearDemoButton = document.getElementById("clearDemoButton");
 
 let isAnalyzing = false;
 
@@ -109,6 +110,7 @@ function renderJson(value) {
 
 function setAnalyzingState(isLoading) {
     document.body.classList.toggle("is-analyzing", isLoading);
+    clearDemoButton.disabled = isLoading;
 
     document.querySelectorAll(".demo-button").forEach((button) => {
         button.disabled = isLoading;
@@ -132,6 +134,35 @@ function setAnalyzingState(isLoading) {
     renderJson({
         status: "analizando",
     });
+}
+
+
+function clearMetricCard(element) {
+    const card = getMetricCard(element);
+
+    delete card.dataset.state;
+    delete card.dataset.risk;
+
+    element.textContent = "-";
+    element.removeAttribute("title");
+}
+
+
+function resetDemo() {
+    if (isAnalyzing) {
+        return;
+    }
+
+    chatBox.innerHTML = "";
+    addMessage("Tocá una demo del panel derecho para simular un mensaje de lead.", "system");
+
+    clearMetricCard(messageType);
+    clearMetricCard(riskLevel);
+    clearMetricCard(nextStep);
+
+    salesBrief.textContent = "Todavía no hay análisis.";
+    doNotDoList.innerHTML = "";
+    renderJson({});
 }
 
 
@@ -268,5 +299,7 @@ async function loadDemoCases() {
     });
 }
 
+
+clearDemoButton.addEventListener("click", resetDemo);
 
 loadDemoCases();
