@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lead Message Detector</title>
+    <link rel="stylesheet" href="/static/styles.css">
+</head>
+
+<body>
+    <main class="app-shell">
+        <section class="chat-panel">
+            <header class="panel-header">
+                <div>
+                    <h1>Lead Message Detector</h1>
+                    <p>Demo visual: mensaje del lead → análisis JSON → brief para Sales Agent</p>
+                </div>
+            </header>
+
+
+            <div id="chatBox" class="chat-box">
+                <div class="message system">
+                    Tocá una demo del panel derecho para simular un mensaje de lead.
+                </div>
+            </div>
+
+
+            <section class="result-cards">
+                <div class="card">
+                    <span>Tipo</span>
+                    <strong id="messageType">-</strong>
+                </div>
+
+                <div class="card">
+                    <span>Riesgo</span>
+                    <strong id="riskLevel">-</strong>
+                </div>
+
+                <div class="card">
+                    <span>Next step</span>
+                    <strong id="nextStep">-</strong>
+                </div>
+            </section>
+
+            <section class="brief-box">
+                <h2>Sales Agent Brief</h2>
+                <p id="salesBrief">Todavía no hay análisis.</p>
+
+                <h3>No hacer</h3>
+                <ul id="doNotDoList"></ul>
+            </section>
+        </section>
+
+        <aside class="demo-panel">
+
+            <header class="side-header">
+                <h2>Demos precargadas</h2>
+                <p>Casos controlados para mostrar la demo sin depender de input libre.</p>
+            </header>
+
+            <div id="demoList" class="demo-list"></div>
+
+            <section class="json-panel">
+                <h2>JSON del detector</h2>
+                <pre id="jsonOutput">{}</pre>
+            </section>
+        </aside>
+    </main>
+
+    <!-- Conectamos el JavaScript -->
+    <script src="/static/app.js"></script>
+</body>
+</html>
